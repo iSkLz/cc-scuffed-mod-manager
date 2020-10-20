@@ -10,7 +10,6 @@
     "mat": "sass node_modules/materialize-css/sass/materialize.scss build/lib/m.css",
     "ts": "tsc",
 	"static": "node static.js",
-    "serve": "node watch.js",
     "server": "http-server -o build/index.html",
     "build": "npm run ts && npm run static"
   },
