@@ -9,7 +9,10 @@
   "scripts": {
     "mat": "sass node_modules/materialize-css/sass/materialize.scss build/lib/m.css",
     "ts": "tsc",
-    "build": "npm run mat && npm run ts"
+	"static": "node static.js",
+    "serve": "node watch.js",
+    "server": "http-server -o build/index.html",
+    "build": "npm run ts && npm run static"
   },
   "repository": {
     "type": "git",
@@ -27,6 +30,7 @@
   },
   "devDependencies": {
     "@types/jquery": "^3.5.3",
+    "http-server": "^0.12.3",
     "sass": "^1.27.0",
     "typescript": "^4.0.3"
   }

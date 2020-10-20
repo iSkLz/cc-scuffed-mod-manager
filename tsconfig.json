@@ -10,7 +10,7 @@
     "target": "ES2016",
     "module": "commonjs",
     // "lib": [],                             /* Specify library files to be included in the compilation. */
-    "allowJs": true,
+    // "allowJs": true,
     "sourceMap": true,                        /* Generates corresponding '.map' file. */
     "outDir": "./build",                      /* Redirect output structure to the directory. */
     // "rootDir": "./",                       /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
