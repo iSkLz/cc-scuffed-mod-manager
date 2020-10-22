@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "server": "http-server",
-	"mat": "sass css/m.scss css/m.css && node minify.js css/m.css css/m.min.css",
+	"mat": "sass scss/m.scss css/m.css && node minify.js css/m.css css/m.min.css",
     "ts": "tsc"
   },
   "repository": {
