@@ -1,19 +1,29 @@
-export class App extends React.Components {
-	
+import Header from "./header.js";
+import View from "./view.js";
+
+export default class App extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			activeView: "manage"
+		};
+
+		this.changeView = (view) => {
+			this.setState({
+				activeView: view
+			});
+		}
+	}
+
+
 	render() {
-		return
-		<div id="root">
-			<nav>
-				<div className="nav-wrapper">
-					<span className="brand-logo"> &nbsp; Scuffed Mod Manager</span>
-					<ul id="nav-mobile" className="right hide-on-med-and-down">
-						<li><a href="#!" onClick={showModsBrowser}>Mods Browser</a></li>
-						<li><a href="#!" onClick={showModsManager}>Installed Mods</a></li>
-						<li><a href="#!" onClick={showActivityView}>Activity View</a></li>
-					</ul>
-				</div>
-			</nav>
-			<br />
-		</div>;
+		return (
+			<div id="app">
+				<Header onViewChange={this.changeView}>Scuffed Mod Manager</Header>
+				<View view={this.state.activeView}></View>
+				<br />
+			</div>
+		);
 	}
 }

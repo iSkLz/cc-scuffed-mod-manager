@@ -2,3 +2,5 @@ node_modules/
 build/
 css/
 js/
+compile.bat
+server.bat
