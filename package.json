@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "server": "http-server",
-  	"mat": "sass scss/m.scss css/m.css && node minify.js css/m.css css/m.min.css",
-    "ts": "tsc"
+    "ts": "tsc",
+    "scss": "sass scss/main.scss css/main.css",
+    "compile": "npm run ts && npm run mat && npm run scss"
   },
   "repository": {
     "type": "git",

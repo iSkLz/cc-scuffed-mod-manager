@@ -1,0 +1,10 @@
+@import "m";
+
+body {
+    @extend .grey, .darken-4 ;
+    @extend .white-text ;
+}
+
+nav * {
+    @extend .grey-text, .text-darken-4 ;
+}
