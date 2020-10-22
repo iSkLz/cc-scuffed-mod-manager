@@ -1,18 +1,17 @@
 {
   "include": [
-    "./src/**/*.ts"
+    "./jsx/**/*.jsx"
   ],
   "exclude": [
-    "./build",
     "node_modules"
   ],
   "compilerOptions": {
-    "target": "ES2016",
-    "module": "commonjs",
-    // "lib": [],                             /* Specify library files to be included in the compilation. */
-    // "allowJs": true,
+    "target": "es2015",
+    "module": "es2015",
+    "jsx": "react",
+    "allowJs": true,
     "sourceMap": true,                        /* Generates corresponding '.map' file. */
-    "outDir": "./build",                      /* Redirect output structure to the directory. */
+    "outDir": "./js",                         /* Redirect output structure to the directory. */
     // "rootDir": "./",                       /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
     // "composite": true,                     /* Enable project compilation */
     // "tsBuildInfoFile": "./",               /* Specify file to store incremental compilation information */

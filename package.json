@@ -1,17 +1,12 @@
 {
-  "name": "modmanager",
+  "name": "cc-scuffed-mod-manager",
   "version": "0.0.1",
-  "description": "A CrossCode mod manager",
+  "description": "A mod manager for CrossCode",
   "main": "index.js",
-  "directories": {
-    "lib": "lib"
-  },
   "scripts": {
-    "mat": "sass node_modules/materialize-css/sass/materialize.scss build/lib/m.css",
-    "ts": "tsc",
-	"static": "node static.js",
-    "server": "http-server -o build/index.html",
-    "build": "npm run ts && npm run static"
+    "server": "http-server",
+	"mat": "sass css/m.scss css/m.css && node minify.js css/m.css css/m.min.css",
+    "ts": "tsc"
   },
   "repository": {
     "type": "git",
@@ -25,9 +20,13 @@
   "homepage": "https://github.com/iSkLz/cc-scuffed-mod-manager#readme",
   "dependencies": {
     "jquery": "^3.5.1",
-    "materialize-css": "^1.0.0-rc.2"
+    "materialize-css": "^1.0.0-rc.2",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0"
   },
   "devDependencies": {
+    "@types/react": "^16.9.53",
+    "@types/react-dom": "^16.9.8",
     "@types/jquery": "^3.5.3",
     "http-server": "^0.12.3",
     "sass": "^1.27.0",
