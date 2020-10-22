@@ -20,9 +20,12 @@ export default class App extends React.Component {
 	render() {
 		return (
 			<div id="app">
-				<Header onViewChange={this.changeView}>Scuffed Mod Manager</Header>
-				<View view={this.state.activeView}></View>
+				<Header activeView={this.state.activeView} onViewChange={this.changeView}>Scuffed Mod Manager</Header>
 				<br />
+
+				<div className="container">
+					<View view={this.state.activeView}></View>
+				</div>
 			</div>
 		);
 	}
