@@ -5,16 +5,14 @@ export default class Header extends React.Component {
         this.handleClick = (e) => {
             this.props.onViewChange(e.target.getAttribute("view"));
         }
-
-        this.createHeaderButton = this.createHeaderButton.bind(this);
     }
 
     render() {
         return (
             <nav>
                 <div className="nav-wrapper">
-                    <span className="brand-logo"> &nbsp; {this.props.children}</span>
-                    <ul id="nav-mobile" className="right hide-on-med-and-down">
+                    <span className="brand-logo left"> &nbsp; {this.props.children}</span>
+                    <ul id="nav-mobile" className="right">
                         {this.createHeaderButton("browse", "Mods Browser")}
                         {this.createHeaderButton("manage", "Installed Mods")}
                         {this.createHeaderButton("activity", "Activity View")}
