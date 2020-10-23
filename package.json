@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "server": "http-server",
-    "ts": "tsc",
+    "ts": "node node_modules/typescript/bin/tsc",
     "scss": "sass scss/main.scss css/main.css",
     "compile": "npm run ts && npm run scss"
   },
