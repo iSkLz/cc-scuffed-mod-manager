@@ -1,10 +1,34 @@
+// Import the custom MaterializeCSS importer
+// When compiled this will sum up everything in one file
+// It also allows for usage of Materialize stuff inside this file like variables
 @import "m";
 
-body {
-    @extend .grey, .darken-4 ;
-    @extend .white-text ;
+// wrapper for the wrapper for the preloader
+// Center any element inside its parent using some hacky rules
+// (Works pretty well when the window is resized too)
+.preloader-wrapper-wrapper {
+    position: absolute;
+    display: inline-block;
+
+    // Translate the element so that its top left corner position becomes its center position
+    transform: translate(-50%, -50%);
+
+    // Move it to the center of the parent, with the translation done above the element will be perfectly
+    // in the center of the parent
+    top: 50%;
+    left: 50%;
 }
 
-nav * {
-    @extend .grey-text, .text-darken-4 ;
+// Wrapper for the wrapper for the wrapper for the preloader
+// Covers the page's content with a white background
+.preloader-wrapper-wrapper-wrapper {
+    background-color: white;
+    position: fixed;
+    z-index: 999;
+    height: 100%;
+    width: 100%;
+}
+
+.waves-green .waves-ripple {
+    background-color: rgba(0, 170, 255, 0.70);
 }
