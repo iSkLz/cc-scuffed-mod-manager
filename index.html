@@ -27,11 +27,40 @@
 		<!-- Main Stylesheet (with MaterializeCSS) (Unminified) -->
 		<link rel="stylesheet" href="css/main.css"></script>
 
+		<!-- Makeshift script to retrieve some fake mod data -->
+		<script>
+			// IIFE to avoid leaking variables, since I'm very dumb and I do that very often
+			// This is a makeshift script anyways
+			(function() {
+				window.retrieveMods = function() {
+					return new Promise((resolve, reject) => {
+						$.ajax({
+							method: "GET",
+							url: "/data.json",
+							success: (data) => {
+								// jQuery will automatically parse the data if it identifies it as JSON
+								// This code is a backup in case it doesn't
+								if (typeof(data) === "object")
+									resolve((data));
+								else
+									resolve(JSON.parse(data));
+							},
+							error: (jqXHR, status, err) => {
+								reject(new Error(err));
+							}
+						});
+					});
+				};
+			})();
+		</script>
+
 		<!-- Main Script -->
 		<script type="module" src="js/main.js"></script>
 	</head>
 	
 	<body>
-		<div id="root"></div>
+		<div id="loader"></div>
+		<div id="app"></div>
+		<div id="dialogs"></div>
 	</body>
 </html>
