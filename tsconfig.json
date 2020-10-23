@@ -1,6 +1,6 @@
 {
   "include": [
-    "./jsx/**/*.jsx"
+    "./jsx/**/*"
   ],
   "exclude": [
     "node_modules"

@@ -7,7 +7,7 @@
     "server": "http-server",
     "ts": "tsc",
     "scss": "sass scss/main.scss css/main.css",
-    "compile": "npm run ts && npm run mat && npm run scss"
+    "compile": "npm run ts && npm run scss"
   },
   "repository": {
     "type": "git",
