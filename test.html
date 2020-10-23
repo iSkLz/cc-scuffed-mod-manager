@@ -3,24 +3,31 @@
     1: The modal test: Testing if initializing a modal returns its instance or not
 -->
 
-<script src="node_modules/materialize-css/dist/js/materialize.js"></script>
-<link rel="stylesheet" href="css/main.css"></script>
-
-<div class="modal">
-    <div class="modal-content">
-        <h4>{this.props.title}</h4>
-        <p>{this.props.message}</p>
-    </div>
-
-    <div class="modal-footer">
-        <a href="#!" class="waves-effect waves-blue btn-flat">
-            Oho
-        </a>
-    </div>
-</div>
-
+<script src="node_modules/jquery/dist/jquery.js"></script>
 <script>
-    var elem = document.querySelector(".modal");
-    var instance = M.Modal.init(elem, {opacity: 0});
-    console.log(elem, instance);
+    (function() {
+        window.retrieveMods = function() {
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    method: "GET",
+                    url: "/data.json",
+                    success: (data) => {
+                        if (typeof(data) === "object")
+                            resolve((data));
+                        else
+                            resolve(JSON.parse(data));
+                    },
+                    error: (jqXHR, status, err) => {
+                        reject(new Error(err));
+                    }
+                });
+            });
+        };
+    })();
+
+    function log(...args) {
+        console.log(...args);
+    }
+
+    retrieveMods().then(log).catch(log);
 </script>

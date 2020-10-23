@@ -1,0 +1,42 @@
+{
+	"id": "SkLz.Example-Mod-Id",
+	"name": "Example Mod Display Name",
+	"description": "An example mod for demonstration",
+	"installedVersion": "1.0.0",
+	"latestVersion": "1.1.0",
+	"author": "iSkLz_",
+	"authorPage": "https://twitter.com/isklz",
+	"tags": [
+		"Game Mechanic", "Playable Character"
+	],
+	"addedOn": 1603393796937,
+	"updatedOn": 1603393796937,
+	"overview": "This text is what will show up in the *mod details* ~~section~~ card below everything.",
+	"header": {
+		"picture": "http://127.0.0.1:9873/docs/images/sample-1.jpg",
+		"title": "Example Mod Header Title",
+		"color": "white"
+	},
+	"pictures": [
+		
+	],
+	"download": [
+		{
+			"type": "gamebanana",
+			"key": "207902",
+			"category": "maps"
+		},
+		{
+			"type": "github",
+			"repo": "EverestAPI/Everest"
+		},
+		{
+			"type": "direct",
+			"URL": "https://example.com/example.zip"
+		}
+	],
+	"dependencies": {
+		"crosscode": "^1.1.0",
+		"ccloader": "^3.0.0-alpha"
+	}
+}
