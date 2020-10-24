@@ -17,14 +17,12 @@ export function Spinner(props) {
 export default function Loader(props) {
     // Believe me, the wrappers are necessary
     return (
-        <div className="preloader-wrapper-wrapper-wrapper">
-            <div className="preloader-wrapper-wrapper">
-                <div className="preloader-wrapper big active">
-                    <Spinner color="blue" />
-                    <Spinner color="red" />
-                    <Spinner color="yellow" />
-                    <Spinner color="green" />
-                </div>
+        <div className="preloader-wrapper-wrapper">
+            <div className="preloader-wrapper big active">
+                <Spinner color="blue" />
+                <Spinner color="red" />
+                <Spinner color="yellow" />
+                <Spinner color="green" />
             </div>
         </div>
     );

@@ -9,7 +9,7 @@ export default class Header extends React.Component {
 
     render() {
         return (
-            <nav>
+            <nav className="no-shadow">
                 <div className="nav-wrapper">
                     <span className="brand-logo left"> &nbsp; {this.props.children}</span>
                     <ul id="nav-mobile" className="right">

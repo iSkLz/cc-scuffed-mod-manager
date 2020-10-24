@@ -5,33 +5,37 @@ export default class View extends React.Component {
     constructor(props) {
         super(props);
 
-        this.modDetailsRef = React.createRef();
+        this.state = {
+            selectedMod: null
+        };
 
         this.changeSelectedMod = (mod) => {
-            this.modDetailsRef.current.displayModDetails(mod);
+            this.setState({
+                selectedMod: mod
+            });
         };
     }
 
     render() {
         switch (this.props.view) {
             case "browse":
-                return renderModsBrowser();
+                return this.renderModsBrowser();
             case "activity":
-                return renderActivity();
+                return this.renderActivity();
             default:
-                return renderModsManager();
+                return this.renderModsManager();
         }
     }
 
     renderModsManager() {
         return (
-            <div id="manage-view" class="row">
-                <div id="installed-mods-list" className="col s6">
-                    <ModsList type="installed" onSelectMod={} />
+            <div id="manage-view" className="row full-height">
+                <div id="mods-list" className="col s4 full-height">
+                    <ModsList type="installed" selected={this.state.selectedMod} onSelectMod={this.changeSelectedMod} />
                 </div>
 
-                <div id="installed-mods-list" className="col s6">
-                    <ModDetails type="installed" ref={this.modDetailsRef} />
+                <div id="mod-details" className="col s8 full-height">
+                    <ModDetails type="installed" modIndex={this.state.selectedMod} />
                 </div>
             </div>
         );
@@ -46,7 +50,8 @@ export default class View extends React.Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        if (this.props.view == nextProps.view) return false;
+        if (this.props.view == nextProps.view && this.state.selectedMod == nextState.selectedMod)
+            return false;
         return true;
     }
 }

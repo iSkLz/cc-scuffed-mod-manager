@@ -6,7 +6,7 @@ export default class App extends React.Component {
 		super(props);
 
 		this.state = {
-			activeView: "manage"
+			activeView: "manage",
 		};
 
 		this.changeView = (view) => {
@@ -16,16 +16,15 @@ export default class App extends React.Component {
 		}
 	}
 
-
 	render() {
 		return (
-			<div id="app">
+			<>
 				<Header activeView={this.state.activeView} onViewChange={this.changeView}>Scuffed Mod Manager</Header>
 
-				<div className="row">
+				<div id="app-view">
 					<View view={this.state.activeView}></View>
 				</div>
-			</div>
+			</>
 		);
 	}
 }
