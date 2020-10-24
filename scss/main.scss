@@ -1,6 +1,7 @@
 // Import the custom MaterializeCSS importer
-// When compiled this will sum up everything in one file
+// When compiled this will sum up everything in this file
 // It also allows for usage of Materialize stuff inside this file like variables
+// And override Materialize rules
 @import "m";
 
 // wrapper for the wrapper for the preloader
@@ -29,6 +30,125 @@
     width: 100%;
 }
 
-.waves-green .waves-ripple {
+// Wrapper for the wrappers, for the mod details component
+// Media query required to account for the height change of the header caused by Materialize
+#mod-details .preloader-wrapper-wrapper-wrapper {
+    position: absolute;
+    height: calc(100% - 56px);
+    // col s8 means 8 out of 12
+    width: calc(100% * 8 / 12);
+}
+@media #{$medium-and-up} {
+    #mod-details .preloader-wrapper-wrapper-wrapper {
+        height: calc(100% - 64px);
+    }
+}
+
+// Blue border for the list, to help seperate the content
+#mods-list {
+    border-right: solid 2px color("blue", "base");
+}
+
+// Light blue waves effect
+// The color used there is different from the Materialize "blue" color
+// But I think it looks better for this particular effect
+.waves-blue .waves-ripple {
     background-color: rgba(0, 170, 255, 0.70);
+}
+
+// Removes unneeded padding, ignore chips, card titles/footers and .keep-padding elements
+.col, .col div:not(.chip):not(.keep-padding):not(.card-title):not(.card-action), .row .col {
+    padding: 0;
+}
+
+// Using !important to enforce full height, always
+.full-height {
+    height: 100% !important;
+}
+
+// Using !important to enforce full width, always
+.full-width {
+    width: 100% !important;
+}
+
+.full-size {
+    @extend .full-width, .full-height ;
+}
+
+// Resize the app element to cover the entire page
+#app {
+    height: 100vh;
+}
+
+// Resize the app view to cover the rest of the page below the header
+// Since Materialize changes the header's size based on media queries we need to adjust to that too
+#app-view {
+    height: calc(100% - 56px);
+}
+@media #{$medium-and-up} {
+    #app-view {
+        height: calc(100% - 64px);
+    }
+}
+
+// Override Materialize's margin
+div.row, div.collection {
+    margin: 0px;
+
+    // Override Materialize's default text colors and font size
+    a.collection-item {
+        color: black;
+        font-size: 13px;
+    }
+}
+
+// An infinite size class for Materialize cards that removes the size limit
+div.card.infinite {
+    height: auto;
+}
+
+// Override Materialize's margin
+div.card {
+    margin: 0px;
+
+    div.card-title {
+        padding: 24px;
+    }
+
+    // Show the title as bold so that its more apparent
+    div.card-title .title {
+        font-size: 26px;
+        font-weight: bold;
+    }
+
+    // Show the description a bit lighter
+    div.card-title .description {
+        font-size: 22px;
+        font-weight: lighter;
+    }
+}
+
+// Remove Materialize's shadow from any element
+// !important used to make sure this will override everything else
+*.no-shadow {
+    box-shadow: unset !important;
+}
+
+// Show the scrollbar for the mods list and the mod details div elements if the content is too long to fit
+#mods-list, #mod-details {
+    overflow-y: auto;
+}
+
+// Hide the scrollbar up & down buttons and the scrollbar corners
+// !important is required to enforce that they never show up
+*::-webkit-scrollbar-button, *::-webkit-scrollbar-corner {
+    display: none !important;
+}
+
+*::-webkit-scrollbar-thumb {
+    @extend .blue;
+}
+
+*::-webkit-scrollbar-track {
+    @extend .red;
 }
