@@ -1,5 +1,6 @@
-export default class MarkdownRenderer extends React.Component {
-    render() {
-        return React.createElement(this.props.element, this.props.attributes, marked(this.props.content))
-    }
+export default function MarkdownRenderer(props) {
+	let ref = (elem) => {
+		elem.innerHTML = marked(props.children);
+	};
+    return <span ref={ref}></span>
 }
