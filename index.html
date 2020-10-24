@@ -18,7 +18,13 @@
 		<script src="node_modules/react-dom/umd/react-dom.development.js"></script>
 
 		<!-- More External Libraries (Mixed) -->
-		<script src="marked.js"></script>
+		<script src="lib/marked.js"></script>
+		<script type="module">
+			// Change this to /ccloader/common/vendor-libs/semver.js for it to work in-game without
+			// having to distribute it again
+			import { SemVer } from "./lib/semver.js";
+			window.SemVer = SemVer;
+		</script>
 		
 		<!-- Fonts -->
 		<link rel="stylesheet" href="fnt/ico.css"></script>
@@ -27,23 +33,24 @@
 		<!-- Main Stylesheet (with MaterializeCSS) (Unminified) -->
 		<link rel="stylesheet" href="css/main.css"></script>
 
-		<!-- Makeshift script to retrieve some fake mod data -->
 		<script>
+			// Makeshift function to retrieve some fake mod data
 			// IIFE to avoid leaking variables, since I'm very dumb and I do that very often
-			// This is a makeshift script anyways
 			(function() {
 				window.retrieveMods = function() {
 					return new Promise((resolve, reject) => {
 						$.ajax({
 							method: "GET",
-							url: "/data.json",
+							url: "data.json",
 							success: (data) => {
 								// jQuery will automatically parse the data if it identifies it as JSON
 								// This code is a backup in case it doesn't
 								if (typeof(data) === "object")
-									resolve((data));
+									var arr = data;
 								else
-									resolve(JSON.parse(data));
+									var arr = JSON.parse(data);
+
+								resolve(arr);
 							},
 							error: (jqXHR, status, err) => {
 								reject(new Error(err));
