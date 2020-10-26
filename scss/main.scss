@@ -168,31 +168,30 @@ div.row, div.collection {
         color: black;
         font-size: 13px;
     }
+
+    a.collection-item.active {
+        [type=checkbox].filled-in:not(:checked):not(:disabled) + span:not(.lever):after {
+            border: 2px solid white;
+        }
+    
+        [type=checkbox].filled-in:checked:not(:disabled) + span:not(.lever):after {
+            border: 1px solid white;
+        }
+    
+        // Always 1px border for disabled checkboxes, otherwise they look ugly
+        [type=checkbox].filled-in:not(:checked):disabled + span:not(.lever):after {
+            border: 1px solid white;
+        }
+    
+        [type=checkbox].filled-in:checked:disabled + span:not(.lever):after {
+            border: 1px solid white;
+        }
+    }
 }
 
 // Override Materialize's default hover background
 .collection a.collection-item:not(.active):hover {
     background-color: #eee;
-}
-
-// Change checkbox border for selected (blue background) collection items
-.collection .collection-item.active {
-    [type=checkbox].filled-in:not(:checked):not(:disabled) + span:not(.lever):after {
-        border: 2px solid white;
-    }
-
-    [type=checkbox].filled-in:checked:not(:disabled) + span:not(.lever):after {
-        border: 1px solid white;
-    }
-
-    // Always 1px border for disabled checkboxes, otherwise they look ugly
-    [type=checkbox].filled-in:not(:checked):disabled + span:not(.lever):after {
-        border: 1px solid white;
-    }
-
-    [type=checkbox].filled-in:checked:disabled + span:not(.lever):after {
-        border: 1px solid white;
-    }
 }
 
 ul.tabs {
