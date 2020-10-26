@@ -93,7 +93,7 @@ window.retrieveMods().then(mods => {
 
     ReactDOM.render(
         <Dialog title="Error" buttons={buttons} important>
-            {err.message}
+            {err.stack}
         </Dialog>,
         document.querySelector("#dialogs")
     );
