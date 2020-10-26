@@ -49,6 +49,17 @@
     border-right: solid 2px color("blue", "base");
 }
 
+// A flexbox container that equally distributes its space between its child elements
+.flex-equal-box {
+    display: flex;
+}
+.flex-equal-box > * {
+    flex: 1 1 0;
+}
+.flex-equal-box.marginated > * {
+    margin: auto 5px;
+}
+
 // Light blue waves effect
 // The color used there is different from the Materialize "blue" color
 // But I think it looks better for this particular effect
@@ -56,9 +67,24 @@
     background-color: rgba(0, 170, 255, 0.70);
 }
 
-// Removes unneeded padding, ignore chips, card titles/footers and .keep-padding elements
-.col, .col div:not(.chip):not(.keep-padding):not(.card-title):not(.card-action), .row .col {
+// Removes unneeded padding, ignore chips, card titles/footers,
+// collection items, collapsibles and .keep-padding elements
+// Even worse, all those :not selectors have to be on one line to work
+.col,
+.col div:not(.chip):not(.keep-padding):not(.card-title):not(.collection-item):not(.card-action):not(.collapsible):not(.collapsible-header):not(.collapsible-body),
+.row .col {
     padding: 0;
+}
+
+// Remove the focus background color
+.keyboard-focused div.collapsible-header:focus {
+	background-color: inherit;
+}
+
+// Move the search options collapsible towards the top, and make it less squished horizontally
+div.collection div.row {
+	margin: -1px;
+	margin-top: -10px;
 }
 
 // Using !important to enforce full height, always
@@ -73,6 +99,29 @@
 
 .full-size {
     @extend .full-width, .full-height ;
+}
+
+// Force hide
+.hidden {
+	display: none !important;
+}
+
+// Force invisibility
+.invisible {
+	visibility: hidden;
+}
+
+// Force absolute positioning
+.absolute {
+    position: absolute !important;
+}
+
+.transparent {
+	opacity: 0%;
+}
+
+.opaque {
+	opacity: 100%;
 }
 
 // Resize the app element to cover the entire page
@@ -91,6 +140,15 @@
     }
 }
 
+// A custom slider caption that appears in the bottom left corner
+// Still gets animated with a fade, but no translation
+.slider .slides li div.custom-caption {
+    position: absolute;
+    bottom: 20px;
+    color: white;
+    left: 20px;
+}
+
 // Override Materialize's margin
 div.row, div.collection {
     margin: 0px;
@@ -99,6 +157,46 @@ div.row, div.collection {
     a.collection-item {
         color: black;
         font-size: 13px;
+    }
+}
+
+// Override Materialize's default hover background
+.collection a.collection-item:not(.active):hover {
+    background-color: #eee;
+}
+
+// Change checkbox border for selected (blue background) collection items
+.collection .collection-item.active {
+    [type=checkbox].filled-in:not(:checked) + span:not(.lever):after {
+        border: 2px solid white;
+    }
+
+    [type=checkbox].filled-in:checked + span:not(.lever):after {
+        border: 1px solid white;
+    }
+}
+
+ul.tabs {
+    // Force the tab underline to cover the full width of the tabs container
+    // Important is required since the line is animated via JS and the rule is added directly to the element
+    .indicator {
+        left: 0px !important;
+        width: 100%;
+    }
+
+    // Always display the "focused" background color on active tabs
+    li.tab a.active {
+        background-color: rgba(106, 184, 247, 0.2);
+    }
+
+    // Change the text color for disabled tabs so that its more apparent that its disabled
+    li.tab a.disabled {
+        color: rgba(33, 150, 243, 0.2);
+    }
+
+    // Remove the "focused" background color from unactive focused tabs
+    li.tab a:not(.active):focus {
+        background-color: transparent;
     }
 }
 
@@ -139,16 +237,17 @@ div.card {
     overflow-y: auto;
 }
 
-// Hide the scrollbar up & down buttons and the scrollbar corners
-// !important is required to enforce that they never show up
-*::-webkit-scrollbar-button, *::-webkit-scrollbar-corner {
-    display: none !important;
+*::-webkit-scrollbar-thumb {
+    min-height: 3rem;
+    background-clip: padding-box;
+    background-color: #00aeff;
 }
 
-*::-webkit-scrollbar-thumb {
-    @extend .blue;
+// Hide the scrollbar up & down buttons and the scrollbar corners
+*::-webkit-scrollbar-button, *::-webkit-scrollbar-corner {
+    display: none;
 }
 
 *::-webkit-scrollbar-track {
-    @extend .red;
+    background-color: #00aeff;
 }
