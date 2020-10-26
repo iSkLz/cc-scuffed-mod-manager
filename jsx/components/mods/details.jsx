@@ -70,6 +70,7 @@ export default class ModDetails extends React.Component {
                     deps.push({
                         name: mod.name,
                         index: mod.index,
+                        version: SemVer(displayedMod.dependencies[mod.id]),
                         id: mod.id,
                         fulfilled: mod.installed &&
                             mod.installedVersion.compare(SemVer(displayedMod.dependencies[mod.id])) != -1
@@ -168,11 +169,11 @@ export default class ModDetails extends React.Component {
         </>);
 
         let depsItems = this.getDependencies().map((dep) => {
-            dep.mark = dep.fulfilled ? " (✔)" : "";
+            dep.mark = ` v${dep.version}` + (dep.fulfilled ? " (✔️)" : " (❌)");
             let item = (
                 <li key={dep.id}>
                     <a href="#!" index={dep.index} onClick={this.navigate}>
-                        {dep.name}
+                        <b>{dep.name}</b>
                     </a>
                     {dep.mark}
                 </li>
