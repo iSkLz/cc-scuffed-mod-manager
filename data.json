@@ -1,16 +1,65 @@
 [
 	{
+		"id": "crosscode",
+		"name": "CrossCode",
+		"description": "The game",
+		"installedVersion": "1.3.0",
+		"permanent": true,
+		"pictures": [
+			"img/2.png",
+			"img/3.png",
+			"img/4.png"
+		]
+	},
+	{
+		"id": "ccloader",
+		"name": "CCLoader",
+		"description": "A mod loader for CrossCode",
+		"installedVersion": "3.0.0-alpha",
+		"permanent": true
+	},
+	{
 		"id": "superbasicmod",
 		"name": "Very Basic Mod",
 		"description": "You only have a description, heheh",
-		"latestVersion": "9.8.7"
+		"latestVersion": "9.8.7",
+		"downloads": [
+			{
+				"type": "gamebanana",
+				"id": "207902",
+				"category": "maps"
+			},
+			{
+				"type": "github",
+				"repo": "EverestAPI/Everest"
+			},
+			{
+				"type": "direct",
+				"URL": "https://example.com/example.zip"
+			}
+		]
 	},
 	{
 		"id": "superbasicmodinstalled",
 		"name": "Very Basic Mod Installed",
 		"description": "You only have a description for this installed mod, heheh",
 		"latestVersion": "1.0.0",
-		"installedVersion": "1.0.0"
+		"installedVersion": "1.0.0",
+		"downloads": [
+			{
+				"type": "gamebanana",
+				"id": "207902",
+				"category": "maps"
+			},
+			{
+				"type": "github",
+				"repo": "EverestAPI/Everest"
+			},
+			{
+				"type": "direct",
+				"URL": "https://example.com/example.zip"
+			}
+		]
 	},
 	{
 		"id": "SkLz.Other-Example-Mod-Id",
@@ -24,16 +73,16 @@
 		],
 		"addedOn": 1603393796937,
 		"updatedOn": 1603393796937,
-		"overview": "# A Header\n OH LOOK! That was a *header* above me, how cool!",
+		"overview": "### A Header\n You can use **Markdown** here to do some *cool* formatting ~~stuff~~.",
 		"header": {
-			"picture": "http://127.0.0.1:9873/docs/images/sample-11.jpg",
+			"picture": "img/2.png",
 			"title": "Example Mod (987) 2 Header Title",
-			"color": "blue"
+			"color": "white"
 		},
-		"download": [
+		"downloads": [
 			{
 				"type": "gamebanana",
-				"key": "207902",
+				"id": "207902",
 				"category": "maps"
 			},
 			{
@@ -46,8 +95,8 @@
 			}
 		],
 		"dependencies": {
-			"crosscode": "^1.0.0",
-			"ccloader": "^3.0.0-alpha"
+			"crosscode": "1.0.0",
+			"ccloader": "3.0.0-alpha"
 		}
 	},
 	{
@@ -68,10 +117,10 @@
 			"title": "Example Mod Header Title",
 			"color": "white"
 		},
-		"download": [
+		"downloads": [
 			{
 				"type": "gamebanana",
-				"key": "207902",
+				"id": "207902",
 				"category": "maps"
 			},
 			{
@@ -84,8 +133,8 @@
 			}
 		],
 		"dependencies": {
-			"crosscode": "^1.1.0",
-			"ccloader": "^3.0.0-alpha"
+			"crosscode": "1.1.0",
+			"ccloader": "3.0.0-alpha"
 		}
 	}
 ]
