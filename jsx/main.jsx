@@ -2,6 +2,9 @@ import Loader from "./components/loader.js";
 import App from "./components/app.js";
 import Dialog from "./components/dialog/message.js";
 
+// Remove Materialize's auto-sliding feature completely
+M.Slider.prototype.start = () => {}
+
 ReactDOM.render((
         <div className="preloader-wrapper-wrapper-wrapper">
             <Loader />
@@ -14,13 +17,17 @@ window.retrieveMods().then(mods => {
     // Sending them through React props would mean passing them down through each component in the hierchary
     // Using a context is only useful if the components are in a single ES6 module
     // Otherwise the context object has to be passed to the componenets which is like the original problem
-    // As of writing this, I can't think of a better way to do it
+    // As of writing this, I can't think of a better way to do it    
     window.modsData = mods.filter(mod => {
         // Filter out mods with no ID
-        if (mod.id == undefined) return false; return true;
+        if (mod.id == undefined) return false;
+        console.log(mod);
+
+        return true;
     }).map(oldMod => {
         var mod = oldMod;
 
+        var prevID = mod.id;
         // Default invalid or unspecified name to ID
         if (typeof(mod.name) !== "string")
             mod.name = mod.id;
@@ -34,6 +41,16 @@ window.retrieveMods().then(mods => {
 
         if (mod.latestVersion != undefined)
             mod.latestVersion = SemVer(mod.latestVersion)
+        else if (mod.installed)
+            mod.latestVersion = mod.installedVersion;
+        else
+            mod.latestVersion = SemVer("1.0.0");
+
+        if (mod.dependencies == undefined)
+            mod.dependencies = {};
+
+        if (mod.downloads == undefined)
+            mod.downloads = [];
 
         return mod;
     }).sort((modA, modB) => {
@@ -49,7 +66,8 @@ window.retrieveMods().then(mods => {
     });
 
     ReactDOM.render(<App />, document.querySelector("#app"));
-
+	
+	$("#menu-fab").animate({opacity: 1.0}, 400);
     $("#loader").fadeOut(500, () => {
         ReactDOM.unmountComponentAtNode(document.querySelector("#loader"));
     });
@@ -74,7 +92,7 @@ window.retrieveMods().then(mods => {
 
     ReactDOM.render(
         <Dialog title="Error" buttons={buttons} important>
-            {msg}<br />{err.message}
+            {err.message}
         </Dialog>,
         document.querySelector("#dialogs")
     );
