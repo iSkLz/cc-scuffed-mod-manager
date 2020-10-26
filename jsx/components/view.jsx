@@ -35,7 +35,7 @@ export default class View extends React.Component {
                 </div>
 
                 <div id="mod-details" className="col s8 full-height">
-                    <ModDetails type="installed" modIndex={this.state.selectedMod} />
+                    <ModDetails type="installed" modIndex={this.state.selectedMod} onNavigate={this.changeSelectedMod} />
                 </div>
             </div>
         );

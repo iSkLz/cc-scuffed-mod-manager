@@ -2,14 +2,29 @@ export default class ModsList extends React.Component {
     constructor(props) {
         super(props);
 
-        this.handleModChange = (e) => {
-            let index = Number(e.target.getAttribute("index"));
+        this.state = {
+            search: ""
+        };
+
+        this.handleSearchChange = (e) => {
+            this.setState({
+                search: e.target.value.toString().toLowerCase()
+            });
+        };
+
+        this.handleModChange = (elem) => {
+            let index = Number(elem.getAttribute("index"));
             this.props.onSelectMod(index);
+        };
+
+        this.initCollapsible = (elem) => {
+            M.Collapsible.init(elem, {});
         };
     }
 
     render() {
-        let items = window.modsData;
+        // Deep copy
+        let items = window.modsData.map((item) => item);
 
         // Filter out uninstalled mods
         if (this.props.type === "installed") {
@@ -18,15 +33,29 @@ export default class ModsList extends React.Component {
             });
         }
 
+        // Do searching
+        items = items.filter((mod) => {
+            return mod.name.toString().toLowerCase().indexOf(this.state.search) != -1;
+        });
+
         // Create a collection item element for each mod
         items = items.map((mod) => {
             return (
                 <a href="#!" key={mod.id} index={mod.index} className={
                         mod.index == this.props.selected ? "collection-item active" : "collection-item"
-                    } onClick={this.handleModChange}>
-                    {mod.name}
+                    } onClick={e => this.handleModChange(e.target)}>
+                    <span>
+                        <label onClick={e => e.stopPropagation()}>
+                            <input type="checkbox" className="filled-in" />
+                            <span>&nbsp;</span>
+                        </label>
 
-                    <span className="secondary-content">
+                        <span style={{left: "25px"}} index={mod.index} onClick={e => this.handleModChange(e.target)}>
+                            {mod.name}
+                        </span>
+                    </span>
+
+                    <span className="secondary-content" index={mod.index} onClick={e => this.handleModChange(e.target)}>
                         v{mod.installedVersion.toString()}
                     </span>
                 </a>
@@ -35,6 +64,32 @@ export default class ModsList extends React.Component {
 
         return (
             <div className="collection">
+                <div className="row">
+                    <ul className="collapsible no-shadow" ref={this.initCollapsible}>
+                        <li>
+                            <div className="collapsible-header">
+                                <i className="material-icons">settings</i>
+                                Search Settings
+                            </div>
+                            <div className="collapsible-body">
+                                <span>
+                                    Lorem ipsum dolor sit amet.<br />
+                                    Since when are search settings ciphered in Lorem Ipsum?
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div className="row">
+                    <div className="col s1" />
+                    <div className="input-field col s10">
+                        <input id="search-input" type="text" onChange={this.handleSearchChange} />
+                        <label htmlFor="search-input">Search</label>
+                    </div>
+                    <div className="col s1" />
+                </div>
+
                 {items}
             </div>
         );
