@@ -15,13 +15,22 @@
 		"id": "ccloader",
 		"name": "CCLoader",
 		"description": "A mod loader for CrossCode",
+		"author": "The CCLoader Team",
 		"installedVersion": "3.0.0-alpha",
 		"permanent": true
 	},
 	{
+		"id": "disabled-forver",
+		"name": "Disabled. FOREVER",
+		"description": "iz dizablued 4ver",
+		"installedVersion": "0.0.1-pre",
+		"permanent": true,
+		"enabled": false
+	},
+	{
 		"id": "superbasicmod",
 		"name": "Very Basic Mod",
-		"description": "You only have a description, heheh",
+		"description": "You only have a description",
 		"latestVersion": "9.8.7",
 		"downloads": [
 			{
@@ -42,9 +51,12 @@
 	{
 		"id": "superbasicmodinstalled",
 		"name": "Very Basic Mod Installed",
-		"description": "You only have a description for this installed mod, heheh",
+		"description": "You only have a description for this installed mod, with uninstalled deps",
 		"latestVersion": "1.0.0",
 		"installedVersion": "1.0.0",
+		"dependencies": {
+			"ccloader": "3.0.0"
+		},
 		"downloads": [
 			{
 				"type": "gamebanana",
