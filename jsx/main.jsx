@@ -58,7 +58,7 @@ window.retrieveMods().then(mods => {
         // Sort by name (JavaScript compares strings by comparing their characters' Unicode code-points)
         // Lowercase is required since capital-case letters have a different code-point than lower-case ones
         // F.e. "a" > "E" returns true which means "E" should come in first which doesn't make sense
-        return modA.name.toLowerCase() > modB.name.toLowerCase() ? 1 : 0;
+        return modA.name.toLowerCase() > modB.name.toLowerCase() ? 1 : -1;
     }).map((oldMod, index) => {
         // After sorting, store the indices
         var mod = oldMod;
