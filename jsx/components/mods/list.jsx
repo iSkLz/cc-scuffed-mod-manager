@@ -3,7 +3,8 @@ export default class ModsList extends React.Component {
         super(props);
 
         this.state = {
-            search: ""
+            search: "",
+            fuzzySearch: false
         };
 
         this.handleSearchChange = (e) => {
@@ -36,6 +37,16 @@ export default class ModsList extends React.Component {
                 return <input type="checkbox" className="filled-in" disabled />;
             return <input type="checkbox" className="filled-in" />;
         }
+
+        this.handleOptionChange = (e) => {
+            let state = e.target.getAttribute("state").toString();
+            let value = e.target.type == "checkbox" ? e.target.checked : e.target.value;
+
+            // [state] is a ES6 computed property index, in case you don't know it
+            this.setState({
+                [state]: value
+            });
+        }
     }
 
     render() {
@@ -51,7 +62,25 @@ export default class ModsList extends React.Component {
 
         // Do searching
         items = items.filter((mod) => {
-            return mod.name.toString().toLowerCase().indexOf(this.state.search) != -1;
+            let modName = mod.name.toLowerCase();
+            let search = this.state.search.toLowerCase();
+    
+            // Fuzzy matching
+            if (this.state.fuzzySearch)
+            {
+                let chars = search.split("");
+
+                for (const char of modName.split("")) {
+                    if (char == chars[0])
+                        chars.shift();
+                }
+
+                // No characters left = match
+                return chars.length == 0;
+            }
+
+            // Normal matching
+            return mod.name.toString().toLowerCase().indexOf(search) != -1;
         });
 
         // Create a collection item element for each mod
@@ -68,7 +97,8 @@ export default class ModsList extends React.Component {
                             <span>&nbsp;</span>
                         </label>
 
-                        <span style={{left: "25px"}} index={mod.index} onClick={e => this.handleModChange(e.target)}>
+                        <span style={{left: "25px"}} index={mod.index}
+                            onClick={e => this.handleModChange(e.target)}>
                             {mod.name}
                         </span>
                     </span>
@@ -91,8 +121,13 @@ export default class ModsList extends React.Component {
                             </div>
                             <div className="collapsible-body">
                                 <span>
-                                    Lorem ipsum dolor sit amet.<br />
-                                    Since when are search settings ciphered in Lorem Ipsum?
+                                    <label>
+                                        <input type="checkbox" className="filled-in" state="fuzzySearch" ref={
+                                                this.state.fuzzySearch ? this.makeChecked : this.doNothing
+                                            }
+                                            onChange={this.handleOptionChange} />
+                                        <span>Fuzzy Matching</span>
+                                    </label>
                                 </span>
                             </div>
                         </li>
