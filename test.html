@@ -2,33 +2,56 @@
     This page has seen many tests in its history...
     1: The modal test: Testing if initializing a modal returns its instance or not
     2: The AJAX test: Testing the data retrieving function
+    3: The image load test: Testing in the hope of finding a good approach to detect when a bunch of images are loaded
+    4: The carousel test: Tested MaterializeCSS's carousel & slider components
 -->
 
 <script src="node_modules/jquery/dist/jquery.js"></script>
+<script src="node_modules/materialize-css/dist/js/materialize.js"></script>
+<link rel="stylesheet" href="css/main.css"></script>
+<!--div class="carousel">
+    <a class="carousel-item materialboxed" href="#one!"><img src="http://127.0.0.1:9873/docs/images/sample-1.jpg?1"></a>
+    <a class="carousel-item materialboxed" href="#two!"><img src="http://127.0.0.1:9873/docs/images/sample-1.jpg?2"></a>
+    <a class="carousel-item materialboxed" href="#three!"><img src="http://127.0.0.1:9873/docs/images/sample-1.jpg?3"></a>
+    <a class="carousel-item materialboxed" href="#four!"><img src="http://127.0.0.1:9873/docs/images/sample-1.jpg?4"></a>
+    <a class="carousel-item materialboxed" href="#five!"><img src="http://127.0.0.1:9873/docs/images/sample-1.jpg?5"></a>
+</div-->
+
+<div class="slider" style="width: 640px">
+    <ul class="slides">
+        <li>
+            <img src="/img/5.png">
+        </li>
+        <li>
+            <img src="/img/1.png">
+            <div class="custom-caption">
+                <h5>Here's our small slogan.</h5>
+            </div>
+        </li>
+        <li>
+            <img src="/img/2.png">
+            <div class="custom-caption">
+                <h5>oho</h5>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<style>
+.custom-caption {
+    position: absolute;
+    bottom: 20px;
+    color: white;
+    left: 20px;
+}
+</style>
+
 <script>
-    (function() {
-        window.retrieveMods = function() {
-            return new Promise((resolve, reject) => {
-                $.ajax({
-                    method: "GET",
-                    url: "/data.json",
-                    success: (data) => {
-                        if (typeof(data) === "object")
-                            resolve((data));
-                        else
-                            resolve(JSON.parse(data));
-                    },
-                    error: (jqXHR, status, err) => {
-                        reject(new Error(err));
-                    }
-                });
-            });
-        };
-    })();
-
-    function log(...args) {
-        console.log(...args);
-    }
-
-    retrieveMods().then(log).catch(log);
+    
+var instance = M.Slider.init(document.querySelector("div.slider"), {
+    interval: 1,
+    height: 360
+});
+instance.start = () => {};
+instance.pause();
 </script>
