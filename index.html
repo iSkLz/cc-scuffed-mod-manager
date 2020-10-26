@@ -68,6 +68,36 @@
 	</head>
 	
 	<body>
+		<div class="fixed-action-btn" style="opacity: 0.0" id="menu-fab">
+			<a class="btn-floating btn-large blue">
+				<i class="large material-icons">menu</i>
+			</a>
+			<ul>
+				</li>
+				<li class="tooltipped" data-position="left" data-tooltip="Options">
+					<a class="btn-floating red">
+						<i class="material-icons">settings</i>
+					</a>
+				</li>
+				<li class="tooltipped" data-position="left" data-tooltip="Quit">
+					<a class="btn-floating yellow">
+						<i class="material-icons">exit_to_app</i>
+					</a>
+				</li>
+				<li class="tooltipped" data-position="left" data-tooltip="Back To CrossCode">
+					<a class="btn-floating green" onclick='window.location = "/ccloader/main.html"'>
+						<i class="material-icons">arrow_back</i>
+					</a>
+				</li>
+			</ul>
+		</div>
+		
+		<!-- TODO: Move this into main.jsx -->
+		<script>
+			$("#menu-fab").floatingActionButton();
+			$('.tooltipped').tooltip();
+		</script>
+	
 		<div id="loader"></div>
 		<div id="app"></div>
 		<div id="dialogs"></div>
