@@ -236,7 +236,7 @@ export default class ModDetails extends React.Component {
 
         const contentScreenshots = details.pictures == undefined || details.pictures.length == 0 ? <></> : (
             <div id="screenshots" className="keep-padding center">
-                <div className="slider" style={{width: "640px"}} ref={this.sliderRef}>
+                <div className="slider preloader-wrapper-wrapper-hor" style={{width: "640px"}} ref={this.sliderRef}>
                     <ul className="slides">
                         {details.pictures.map((picURL) => <li><img src={picURL} /></li>)}
                     </ul>

@@ -20,6 +20,16 @@
     left: 50%;
 }
 
+// wrapper for the wrapper for the preloader, horizontal version (without absolute positioning)
+// Center any element inside its parent horizontally
+.preloader-wrapper-wrapper-hor {
+    // Translate the element so that its left side becomes its center
+    transform: translate(-50%);
+
+    // Move it to the center of the parent horizontally using margin
+    margin-left: 50%;
+}
+
 // Wrapper for the wrapper for the wrapper for the preloader
 // Covers the page's content with a white background
 .preloader-wrapper-wrapper-wrapper {
@@ -167,11 +177,20 @@ div.row, div.collection {
 
 // Change checkbox border for selected (blue background) collection items
 .collection .collection-item.active {
-    [type=checkbox].filled-in:not(:checked) + span:not(.lever):after {
+    [type=checkbox].filled-in:not(:checked):not(:disabled) + span:not(.lever):after {
         border: 2px solid white;
     }
 
-    [type=checkbox].filled-in:checked + span:not(.lever):after {
+    [type=checkbox].filled-in:checked:not(:disabled) + span:not(.lever):after {
+        border: 1px solid white;
+    }
+
+    // Always 1px border for disabled checkboxes, otherwise they look ugly
+    [type=checkbox].filled-in:not(:checked):disabled + span:not(.lever):after {
+        border: 1px solid white;
+    }
+
+    [type=checkbox].filled-in:checked:disabled + span:not(.lever):after {
         border: 1px solid white;
     }
 }
