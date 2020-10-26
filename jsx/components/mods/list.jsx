@@ -20,6 +20,22 @@ export default class ModsList extends React.Component {
         this.initCollapsible = (elem) => {
             M.Collapsible.init(elem, {});
         };
+
+        this.doNothing = () => {};
+
+        this.makeChecked = (elem) => {
+            $(elem).attr("checked", "checked");
+        }
+
+        this.makeCheckbox = (checked, disabled) => {
+            if (checked) {
+                if (disabled)
+                    return <input type="checkbox" className="filled-in" ref={this.makeChecked} disabled />;
+                return <input type="checkbox" className="filled-in" ref={this.makeChecked} />;
+            } else if (disabled)
+                return <input type="checkbox" className="filled-in" disabled />;
+            return <input type="checkbox" className="filled-in" />;
+        }
     }
 
     render() {
@@ -46,7 +62,9 @@ export default class ModsList extends React.Component {
                     } onClick={e => this.handleModChange(e.target)}>
                     <span>
                         <label onClick={e => e.stopPropagation()}>
-                            <input type="checkbox" className="filled-in" />
+                            {
+                                this.makeCheckbox(mod.enabled, mod.permanent)
+                            }
                             <span>&nbsp;</span>
                         </label>
 

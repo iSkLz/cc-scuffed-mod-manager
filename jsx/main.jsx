@@ -21,14 +21,12 @@ window.retrieveMods().then(mods => {
     window.modsData = mods.filter(mod => {
         // Filter out mods with no ID
         if (mod.id == undefined) return false;
-        console.log(mod);
 
         return true;
     }).map(oldMod => {
         var mod = oldMod;
 
-        var prevID = mod.id;
-        // Default invalid or unspecified name to ID
+        // Default values
         if (typeof(mod.name) !== "string")
             mod.name = mod.id;
         
@@ -51,6 +49,9 @@ window.retrieveMods().then(mods => {
 
         if (mod.downloads == undefined)
             mod.downloads = [];
+
+        if (mod.enabled == undefined)
+            mod.enabled = true;
 
         return mod;
     }).sort((modA, modB) => {
