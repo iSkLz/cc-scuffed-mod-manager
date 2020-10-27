@@ -68,12 +68,20 @@
 	</head>
 	
 	<body>
+		<div class="tap-target" data-target="menu-fab-btn" id="menu-discovery">
+			<div class="tap-target-content white-text">
+				<h5> &nbsp; &nbsp; Menu</h5>
+				<p>Access the menu by hovering over the button.<br>
+				You can go back to the game, as well as<br>
+				reload, quit and configure the mod manager.</p>
+			</div>
+		</div>
+
 		<div class="fixed-action-btn" style="opacity: 0.0" id="menu-fab">
-			<a class="btn-floating btn-large blue">
+			<a class="btn-floating btn-large blue" id="menu-fab-btn">
 				<i class="large material-icons">menu</i>
 			</a>
 			<ul>
-				</li>
 				<li class="tooltipped" data-position="left" data-tooltip="Options">
 					<a class="btn-floating red">
 						<i class="material-icons">settings</i>
@@ -89,14 +97,13 @@
 						<i class="material-icons">arrow_back</i>
 					</a>
 				</li>
+				<li class="tooltipped" data-position="left" data-tooltip="Reload">
+					<a class="btn-floating blues" onclick='window.location.reload()'>
+						<i class="material-icons">loop</i>
+					</a>
+				</li>
 			</ul>
 		</div>
-		
-		<!-- TODO: Move this into main.jsx -->
-		<script>
-			$("#menu-fab").floatingActionButton();
-			$('.tooltipped').tooltip();
-		</script>
 	
 		<div id="loader"></div>
 		<div id="app"></div>
