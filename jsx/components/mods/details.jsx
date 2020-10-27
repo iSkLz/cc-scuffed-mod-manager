@@ -1,7 +1,7 @@
 import Loader from "../loader.js";
 import MarkdownRenderer from "../md-renderer.js";
 
-export default class ModDetails extends React.Component {
+export default class ModDetails extends React.PureComponent {
     constructor(props) {
         super(props);
 
@@ -81,7 +81,7 @@ export default class ModDetails extends React.Component {
         };
 
         this.navigate = (e) => {
-            e.preventDefault();
+            e.stopPropagation();
             // If retrieving the index attribute fails, fallback to the current mod
             // In other words, silently do not navigate
             this.props.onNavigate(Number(e.target.getAttribute("index") || this.props.modIndex));
@@ -155,16 +155,21 @@ export default class ModDetails extends React.Component {
         </>);
 
         const actionButtonClass = "waves-effect waves-light btn-large blue no-shadow";
-        let updatePostfix = "", removePostfix = "";
-        if (!this.canUpdate()) updatePostfix = " disabled";
-        if (!this.canRemove()) removePostfix = " disabled";
+        let updatePostfix = "", removePostfix = "", installPostfix = ""; // Install postfix in case needed later on
+        // Execute "can update/remove" queries only if necessary
+        if (details.installed && !this.canUpdate()) updatePostfix = " disabled";
+        if (details.installed && !this.canRemove()) removePostfix = " disabled";
 
-        const actions = (<>
+        const actions = details.installed ? (<>
             <a className={`${actionButtonClass}${updatePostfix}`} key="updateBtn" href="#!">
                 <i className="material-icons left">sync</i>Update
             </a>
             <a className={`${actionButtonClass}${removePostfix}`} key="removeBtn" href="#!">
                 <i className="material-icons left">delete</i>Uninstall
+            </a>
+        </>) : (<>
+            <a className={`${actionButtonClass}${installPostfix}`} key="updateBtn" href="#!">
+                <i className="material-icons left">file_download</i>Install
             </a>
         </>);
 
@@ -173,7 +178,7 @@ export default class ModDetails extends React.Component {
             let item = (
                 <li key={dep.id}>
                     <a href="#!" index={dep.index} onClick={this.navigate}>
-                        <b>{dep.name}</b>
+                        <b index={dep.index}>{dep.name}</b>
                     </a>
                     {dep.mark}
                 </li>
@@ -206,7 +211,11 @@ export default class ModDetails extends React.Component {
                 </>)}
                 
                 <br />
-                <b>Version (Installed):</b> {details.installedVersion.toString()}<br />
+                {
+                    details.installed ? (<>
+                            <b>Version (Installed):</b> {details.installedVersion.toString()}<br />
+                    </>) : <></>
+                }
                 <b>Version (Newest):</b> {details.latestVersion.toString()}<br />
                 <br />
 

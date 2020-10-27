@@ -103,30 +103,54 @@ export default class ModsList extends React.PureComponent {
 
         // Create a collection item element for each mod
         items = items.map((mod) => {
+            const updateIcon = (
+                mod.installed && mod.latestVersion.compare(mod.installedVersion) == 1
+                    ? <>(<i className="material-icons left">sync</i>)</>
+                    : <></>
+            );
+
             return (
                 <a href="#!" key={mod.id} index={mod.index} className={
                         mod.index == this.props.selected ? "collection-item active" : "collection-item"
                     } onClick={e => this.handleModChange(e.target)}>
                     <span>
-                        <label onClick={e => e.stopPropagation()}>
-                            {
-                                this.makeCheckbox(mod.enabled, mod.permanent)
-                            }
-                            <span>&nbsp;</span>
-                        </label>
+                        {
+                            this.props.type !== "installed" ? <></> : (
+                                <label onClick={e => e.stopPropagation()}>
+                                    {
+                                        this.makeCheckbox(mod.enabled, mod.permanent)
+                                    }
+                                    <span>&nbsp;</span>
+                                </label>
+                            )
+                        }
 
                         <span style={{left: "25px"}} index={mod.index}
                             onClick={e => this.handleModChange(e.target)}>
                             {mod.name}
                         </span>
                     </span>
-
-                    <span className="secondary-content" index={mod.index} onClick={e => this.handleModChange(e.target)}>
-                        v{mod.installedVersion.toString()}
-                    </span>
+                    
+                    {
+                        this.props.type === "installed" ? (
+                            <span className="secondary-content" index={mod.index}
+                                onClick={e => this.handleModChange(e.target)}>
+                                v{mod.installedVersion.toString()}
+                                {updateIcon}
+                            </span>
+                        ) : (
+                            <span className="secondary-content" index={mod.index}
+                                onClick={e => this.handleModChange(e.target)}>
+                                v{mod.latestVersion.toString()}
+                                {updateIcon}
+                            </span>
+                        )
+                    }
                 </a>
             );
         });
+
+        console.log(this.state);
 
         return (
             <div className="collection">

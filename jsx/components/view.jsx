@@ -42,7 +42,17 @@ export default class View extends React.Component {
     }
 
     renderModsBrowser() {
+        return (
+            <div id="manage-view" className="row full-height">
+                <div id="mods-list" className="col s4 full-height">
+                    <ModsList type="browse" selected={this.state.selectedMod} onSelectMod={this.changeSelectedMod} />
+                </div>
 
+                <div id="mod-details" className="col s8 full-height">
+                    <ModDetails type="browse" modIndex={this.state.selectedMod} onNavigate={this.changeSelectedMod} />
+                </div>
+            </div>
+        );
     }
 
     renderActivity() {
