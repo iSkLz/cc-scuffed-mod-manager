@@ -5,6 +5,9 @@ import Dialog from "./components/dialog/message.js";
 // Remove Materialize's auto-sliding feature completely
 M.Slider.prototype.start = () => {}
 
+$("#menu-fab").floatingActionButton();
+$('.tooltipped').tooltip();
+
 ReactDOM.render((
         <div className="preloader-wrapper-wrapper-wrapper">
             <Loader />
@@ -12,8 +15,29 @@ ReactDOM.render((
     ), document.querySelector("#loader")
 );
 
+function hasCircularDependencies(modID, checkedModIDs = []) {
+	let mod = window.modsData[modID];
+	checkedModIDs.push(modID);
+	
+	for (const depID in mod.dependencies) {
+		// The check is done here, and to optimize performance it only returns true
+		// Not passing the list also implicates returning true if a mod depends on itself
+		if (checkedModIDs.includes(depID)) return true;
+	
+		// Lazy way to do a deep copy, fix it if you know a better way
+		let checkedModIDsCopy = checkedModIDs.map(elem => elem);
+		
+        if (hasCircularDependencies(window.modsData.find((item) => item.id == depID).index, checkedModIDs))
+            return checkedModIDs;
+        
+        checkedModIDs = checkedModIDsCopy;
+	}
+	
+	return false;
+}
+
 window.retrieveMods().then(mods => {
-    // Store the data globally so that they can be accessed anywhere
+    // Store the data globally so that it can be accessed anywhere
     // Sending them through React props would mean passing them down through each component in the hierchary
     // Using a context is only useful if the components are in a single ES6 module
     // Otherwise the context object has to be passed to the componenets which is like the original problem
@@ -59,10 +83,15 @@ window.retrieveMods().then(mods => {
         // Lowercase is required since capital-case letters have a different code-point than lower-case ones
         // F.e. "a" > "E" returns true which means "E" should come in first which doesn't make sense
         return modA.name.toLowerCase() > modB.name.toLowerCase() ? 1 : -1;
-    }).map((oldMod, index) => {
-        // After sorting, store the indices
+    });
+    
+    window.modsData = window.modsData.map((oldMod, index) => {
+        // After sorting, store the indices and check for circular dependencies
         var mod = oldMod;
+
         mod.index = index;
+        mod.circularDependencies = hasCircularDependencies(index); 
+
         return mod;
     });
 
@@ -71,6 +100,11 @@ window.retrieveMods().then(mods => {
 	$("#menu-fab").animate({opacity: 1.0}, 400);
     $("#loader").fadeOut(500, () => {
         ReactDOM.unmountComponentAtNode(document.querySelector("#loader"));
+		if (!localStorage.getItem("beenVisited")) {
+			localStorage.setItem("beenVisited", true);
+			$("#menu-discovery").tapTarget();
+			$("#menu-discovery").tapTarget("open");
+		}
     });
 }).catch(err => {
     const msg = "An error occured while loading the app:";
