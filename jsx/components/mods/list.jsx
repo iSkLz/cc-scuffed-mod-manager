@@ -1,10 +1,11 @@
-export default class ModsList extends React.Component {
+export default class ModsList extends React.PureComponent {
     constructor(props) {
         super(props);
 
         this.state = {
             search: "",
-            fuzzySearch: false
+            fuzzySearch: false,
+            reverseSort: false
         };
 
         this.handleSearchChange = (e) => {
@@ -42,7 +43,7 @@ export default class ModsList extends React.Component {
             let state = e.target.getAttribute("state").toString();
             let value = e.target.type == "checkbox" ? e.target.checked : e.target.value;
 
-            // [state] is a ES6 computed property index, in case you don't know it
+            // [state] is an ES6 computed property index, in case you don't know it
             this.setState({
                 [state]: value
             });
@@ -50,14 +51,31 @@ export default class ModsList extends React.Component {
     }
 
     render() {
-        // Deep copy
-        let items = window.modsData.map((item) => item);
+        let items;
 
-        // Filter out uninstalled mods
-        if (this.props.type === "installed") {
-            items = items.filter((mod) => {
-                return mod.installed;
-            });
+        // Deep copy & reverse order
+        if (this.state.reverseSort) {
+            items = [];
+            let count = window.modsData.length;
+
+            // Filter out uninstalled mods
+            if (this.props.type === "installed") {
+                window.modsData.forEach((item, index) => {
+                    if (item.installed) items[count - index] = item;
+                });
+                
+                // Remove the empty spaces that might be left
+                items = items.filter(item => item);
+            } else
+                window.modsData.forEach((item, index) => items[count - index] = item);
+        
+        // Only deep copy
+        } else {
+            // Filter out uninstalled mods
+            if (this.props.type === "installed")
+                items = window.modsData.filter((item) => item.installed);
+            else
+                items = window.modsData.map((item) => item);
         }
 
         // Do searching
@@ -117,7 +135,7 @@ export default class ModsList extends React.Component {
                         <li>
                             <div className="collapsible-header">
                                 <i className="material-icons">settings</i>
-                                Search Settings
+                                Search Options
                             </div>
                             <div className="collapsible-body">
                                 <span>
@@ -127,6 +145,13 @@ export default class ModsList extends React.Component {
                                             }
                                             onChange={this.handleOptionChange} />
                                         <span>Fuzzy Matching</span>
+                                    </label><br /><br />
+                                    <label>
+                                        <input type="checkbox" className="filled-in" state="reverseSort" ref={
+                                                this.state.reverseSort ? this.makeChecked : this.doNothing
+                                            }
+                                            onChange={this.handleOptionChange} />
+                                        <span>Reverse Sort</span>
                                     </label>
                                 </span>
                             </div>
