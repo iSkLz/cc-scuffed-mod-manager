@@ -70,6 +70,13 @@
     margin: auto 5px;
 }
 
+.fixed-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 500;
+}
+
 // Light blue waves effect
 // The color used there is different from the Materialize "blue" color
 // But I think it looks better for this particular effect

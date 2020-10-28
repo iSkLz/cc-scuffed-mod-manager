@@ -192,6 +192,8 @@ export default class ModsList extends React.PureComponent {
             return thing;
         }
 
+        const brIfBig = this.props.small ? <>&nbsp;</> : <br />;
+
         return (
             <div className="collection">
                 <div className="row">
@@ -217,14 +219,14 @@ export default class ModsList extends React.PureComponent {
                                                     checked={this.state.sortBy === "installed"}
                                                     onChange={this.handleOptionChange} />
                                                 <span>Installed</span>
-                                            </label><br />
+                                            </label>{brIfBig}
                                         </>) : (<>
                                             <label>
                                                 <input className="with-gap" name="sortBy" type="radio" value="enabled"
                                                     checked={this.state.sortBy === "enabled"}
                                                     onChange={this.handleOptionChange} />
                                                 <span>Enabled</span>
-                                            </label><br />
+                                            </label>{brIfBig}
                                         </>)
                                     }
                                     <label>

@@ -1,5 +1,6 @@
 import Loader from "../loader.js";
 import MarkdownRenderer from "../md-renderer.js";
+import Tooltip from "../utils/tooltip.js";
 
 export default class ModDetails extends React.PureComponent {
     constructor(props) {
@@ -286,9 +287,17 @@ export default class ModDetails extends React.PureComponent {
                 </div>
         );
 
+        const returnBtn = this.props.small ? (
+            <Tooltip element="a" classes="fixed-btn btn-floating btn-large blue" onClick={this.props.onReturn}
+                position="left" text="Back To The List">
+                <i className="large material-icons">arrow_back</i>
+            </Tooltip>
+        ) : <></>;
+
         return (
             <>
                 {loader}
+                {returnBtn}
 
                 <div className="card no-shadow infinite">
                     {head}
