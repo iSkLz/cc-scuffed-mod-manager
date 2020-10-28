@@ -1,6 +1,7 @@
 import Loader from "./components/loader.js";
 import App from "./components/app.js";
 import Dialog from "./components/dialog/message.js";
+import FetchData from "./data.js";
 
 // Remove Materialize's auto-sliding feature completely
 M.Slider.prototype.start = () => {}
@@ -36,7 +37,7 @@ function hasCircularDependencies(modID, checkedModIDs = []) {
 	return false;
 }
 
-window.retrieveMods().then(mods => {
+FetchData().then(mods => {
     // Store the data globally so that it can be accessed anywhere
     // Sending them through React props would mean passing them down through each component in the hierchary
     // Using a context is only useful if the components are in a single ES6 module
