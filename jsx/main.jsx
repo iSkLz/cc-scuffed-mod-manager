@@ -6,7 +6,6 @@ import FetchData from "./data.js";
 // Remove Materialize's auto-sliding feature completely
 M.Slider.prototype.start = () => {}
 
-$("#menu-fab").floatingActionButton();
 $('.tooltipped').tooltip();
 
 ReactDOM.render((
@@ -97,15 +96,9 @@ FetchData().then(mods => {
     });
 
     ReactDOM.render(<App />, document.querySelector("#app"));
-	
-	$("#menu-fab").animate({opacity: 1.0}, 400);
+
     $("#loader").fadeOut(500, () => {
         ReactDOM.unmountComponentAtNode(document.querySelector("#loader"));
-		if (!localStorage.getItem("beenVisited")) {
-			localStorage.setItem("beenVisited", true);
-			$("#menu-discovery").tapTarget();
-			$("#menu-discovery").tapTarget("open");
-		}
     });
 }).catch(err => {
     const msg = "An error occured while loading the app:";

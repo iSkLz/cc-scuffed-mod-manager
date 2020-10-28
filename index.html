@@ -22,8 +22,8 @@
 		<!-- More External Libraries (Mixed) -->
 		<script src="lib/marked.js"></script>
 		<script type="module">
-			// Change this to /ccloader/common/vendor-libs/semver.js for it to work in-game without
-			// having to distribute it again
+			// Change this to /ccloader/common/vendor-libs/semver.js
+			// So that we don't have to distribute it again
 			import { SemVer } from "./lib/semver.js";
 			window.SemVer = SemVer;
 		</script>
@@ -39,44 +39,7 @@
 		<script type="module" src="js/main.js"></script>
 	</head>
 	
-	<body>
-		<div class="tap-target" data-target="menu-fab-btn" id="menu-discovery">
-			<div class="tap-target-content white-text">
-				<h5> &nbsp; &nbsp; Menu</h5>
-				<p>Access the menu by hovering over the button.<br>
-				You can go back to the game, as well as<br>
-				reload, quit and configure the mod manager.</p>
-			</div>
-		</div>
-
-		<div class="fixed-action-btn" style="opacity: 0.0" id="menu-fab">
-			<a class="btn-floating btn-large blue" id="menu-fab-btn">
-				<i class="large material-icons">menu</i>
-			</a>
-			<ul>
-				<li class="tooltipped" data-position="left" data-tooltip="Options">
-					<a class="btn-floating red">
-						<i class="material-icons">settings</i>
-					</a>
-				</li>
-				<li class="tooltipped" data-position="left" data-tooltip="Quit">
-					<a class="btn-floating yellow">
-						<i class="material-icons">exit_to_app</i>
-					</a>
-				</li>
-				<li class="tooltipped" data-position="left" data-tooltip="Back To CrossCode">
-					<a class="btn-floating green" onclick='window.location = "/ccloader/main.html"'>
-						<i class="material-icons">arrow_back</i>
-					</a>
-				</li>
-				<li class="tooltipped" data-position="left" data-tooltip="Reload">
-					<a class="btn-floating blues" onclick='window.location.reload()'>
-						<i class="material-icons">loop</i>
-					</a>
-				</li>
-			</ul>
-		</div>
-	
+	<body>	
 		<div id="loader"></div>
 		<div id="app"></div>
 		<div id="dialogs"></div>

@@ -13,7 +13,7 @@ export default class App extends React.Component {
 			this.setState({
 				activeView: view
 			});
-		}
+		};
 	}
 
 	render() {
