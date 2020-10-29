@@ -39,17 +39,25 @@ export default class View extends React.Component {
         if (this.props.view === "activity") {
             return (
                 <ActivityView activities={[
-                    {progress: 0},
-                    {progress: 10},
-                    {progress: 20},
-                    {progress: 30},
-                    {progress: 40},
-                    {progress: 50},
-                    {progress: 60},
-                    {progress: 70},
-                    {progress: 80},
-                    {progress: 90},
-                    {progress: 100},
+                    {
+                        name: "hello",
+                        progress: 30,
+                        paused: false,
+                        change: console.log
+                    },
+                    {
+                        name: "hoi",
+                        progress: 70,
+                        paused: true,
+                        cancel: console.log
+                    },
+                    {
+                        name: "hewwo",
+                        progress: 100,
+                        paused: false,
+                        change: console.log,
+                        cancel: console.log
+                    }
                 ]} />
             );
         }

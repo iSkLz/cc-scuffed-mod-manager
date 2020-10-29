@@ -201,6 +201,16 @@ div.row, div.collection {
     background-color: #eee;
 }
 
+div.progress {
+    background-color: rgba(106, 184, 247, 0.5);
+    height: 25px;
+    margin: 0px;
+}
+
+div.progress > div {
+    height: 25px;
+}
+
 ul.tabs {
     // Force the tab underline to cover the full width of the tabs container
     // Important is required since the line is animated via JS and the rule is added directly to the element
