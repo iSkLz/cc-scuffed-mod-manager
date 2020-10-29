@@ -3,6 +3,61 @@ import App from "./components/app.js";
 import Dialog from "./components/dialog/message.js";
 import FetchData from "./data.js";
 
+// Initialize the menubar asynchronously
+// Please fix this, my brain stopped working
+(async function() {
+    let menubar = new nw.Menu({ type: 'menubar' });
+
+    let changeViewFactory = (view) => {
+        return () => {
+            ReactDOM.render(<App activeView={view} />, document.querySelector("#app"));
+        }
+    }
+
+    let viewmenu = new nw.Menu();
+
+    viewmenu.append(new nw.MenuItem({
+        label: "Mods Manager",
+        click: changeViewFactory("installed")
+    }));
+    viewmenu.append(new nw.MenuItem({
+        label: "Mods Browser",
+        click: changeViewFactory("browse")
+    }));
+    viewmenu.append(new nw.MenuItem({
+        label: "Activity View",
+        click: changeViewFactory("activity")
+    }));
+
+    menubar.append(new nw.MenuItem({
+        label: "View",
+        submenu: viewmenu
+    }));
+
+
+    let toolsmenu = new nw.Menu();
+
+    toolsmenu.append(new nw.MenuItem({
+        label: "Reload",
+        click: () => window.location.reload()
+    }));
+    toolsmenu.append(new nw.MenuItem({
+        label: "Back To CrossCode",
+        click: () => {
+            // Remove the menu before dying
+            nw.Window.get().menu = null;
+            window.location = "/ccloader/main.html";
+        }
+    }));
+
+    menubar.append(new nw.MenuItem({
+        label: "Tools",
+        submenu: toolsmenu
+    }));
+
+    nw.Window.get().menu = menubar;
+})();
+
 // Remove Materialize's auto-sliding feature completely
 M.Slider.prototype.start = () => {}
 
@@ -95,7 +150,7 @@ FetchData().then(mods => {
         return mod;
     });
 
-    ReactDOM.render(<App />, document.querySelector("#app"));
+    ReactDOM.render(<App activeView="installed" />, document.querySelector("#app"));
 
     $("#loader").fadeOut(500, () => {
         ReactDOM.unmountComponentAtNode(document.querySelector("#loader"));

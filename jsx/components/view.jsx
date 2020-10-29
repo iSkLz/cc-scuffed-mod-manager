@@ -1,7 +1,7 @@
 import ModsList from "./mods/list.js";
 import ModDetails from "./mods/details.js";
 
-// TODO: Investigate INSANE memory leak when the window is too quickly resized
+// TODO: Investigate INSANE memory leak when the window is resized a lot
 export default class View extends React.Component {
     constructor(props) {
         super(props);

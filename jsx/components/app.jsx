@@ -18,13 +18,7 @@ export default class App extends React.Component {
 
 	render() {
 		return (
-			<>
-				<Header activeView={this.state.activeView} onViewChange={this.changeView}>Scuffed Mod Manager</Header>
-
-				<div id="app-view">
-					<View view={this.state.activeView}></View>
-				</div>
-			</>
+			<View view={this.props.activeView}></View>
 		);
 	}
 }
