@@ -96,7 +96,9 @@ FetchData().then(mods => {
     // Sending them through React props would mean passing them down through each component in the hierchary
     // Using a context is only useful if the components are in a single ES6 module
     // Otherwise the context object has to be passed to the componenets which is like the original problem
-    // As of writing this, I can't think of a better way to do it    
+    // As of writing this, I can't think of a better way to do it
+    window.modsTags = [];
+
     window.modsData = mods.filter(mod => {
         // Filter out mods with no ID
         if (mod.id == undefined) return false;
@@ -132,6 +134,9 @@ FetchData().then(mods => {
         if (mod.enabled == undefined)
             mod.enabled = true;
 
+        if (mod.tags == undefined)
+            mod.tags = [];
+
         return mod;
     }).sort((modA, modB) => {
         // Sort by name (JavaScript compares strings by comparing their characters' Unicode code-points)
@@ -146,6 +151,12 @@ FetchData().then(mods => {
 
         mod.index = index;
         mod.circularDependencies = hasCircularDependencies(index); 
+
+        // Also store all tags
+        for (const tag of mod.tags) {
+            if (window.modsTags.find(item => item.toLowerCase() == tag.toLowerCase()) === undefined)
+                window.modsTags.push(tag);
+        }
 
         return mod;
     });
