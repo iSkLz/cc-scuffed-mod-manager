@@ -1,0 +1,162 @@
+// Comments for explaining, don't judge
+
+// In this file is a single object, while the actual code will accept an array of objects like this one
+
+// The code will show a loader and then call window.retrieveMods at the start, which should return a promise that resolves with a list of mods
+// The loader will be the only thing on screen while the promise isn't resolved yet, and will go away once it does
+// If the promise throws an error, it will be displayed on screen with a dialog offering to go back to the game or reload the page
+
+// This "specification" combines uninstalled & installed mods both into a single object type
+// That makes it easier to both manage mods in the code and merge mods from multiple sources into a single unified list
+
+// There are also many cosmetic fields that are merely there to allow mods to customize their page, nothing more
+// Most of those will just be ignored if they're not specified
+
+{
+	// A unique string used to identify the mod
+	// If not provided, the mod object is skipped
+	// Note: Case-sensisitive
+	"id": "SkLz.Example-Mod-Id",
+	
+	
+	// Name of the mod, this is what is gonna be displayed in the mods list
+	// If not provided, the ID is assumed
+	"name": "Example Mod Display Name",
+	
+	
+	// A brief decsription of the mod, this is what is gonna be displayed in the mods details card
+	// It will also be displayed below the mod's name in the mods list but it will be truncated if its too long
+	// If not provided, only the mod's name will be displayed
+	"description": "An example mod for demonstration",
+	
+	// True if the mod cannot be removed, like ccloader-runtime
+	"permanent": true	
+	
+	// The version of the installed mod
+	// If provided the mod is assumed to be installed (unless its equal to null)
+	"installedVersion": "1.0.0",
+	
+	
+	// The latest download-available version of the mod
+	// If not provided, the installed version is assumed
+	// If the installed version isn't provided either, 1.0.0 is assumed
+	"latestVersion": "1.1.0",
+	
+	
+	// Name of the author, simple eh?
+	// No author will be displayed if not provided
+	"author": "iSkLz_",
+	
+	
+	// A URL that the author's name will link to
+	// None is assumed if not provided
+	"authorPage": "https://twitter.com/isklz",
+	
+	
+	// Some tags to indicate the category of the mod
+	// What I have in mind for this at the moment is displaying them as chips in the details card
+	// I will probably look for a way to display them in the mods list, but I'll have to do a limit of something like 4 tags
+	
+	// Edit: I will add support for filtering using tags (tags are written in the search bar)
+	// I think of adding support for autocompleting the tags so that someone dones't mess up the spelling and go like "I'VE CHOSEN GAME MEHCANIC WHY IS'NT THAT MOD SHOWING UP"
+	// That also means I have to merge all the available tags from the mods list into a unified array.
+	// If none exist, none will be displayed
+	"tags": [
+		"Game Mechanic", "Playable Character"
+	],
+	
+	
+	// Unix timestamp of when the mod was originally posted
+	// This is used to add a "NEW" badge to mods in the list, to intrigue the user
+	// If this is not provided, the mod simply won't be marked as "NEW"
+	"addedOn": 1603393796937,
+	
+	
+	// Unix timestamp pf when the mod recieved its latest update
+	// This is used to add a "UPDATED" badge mods in the list, again to intrigue the user
+	// If this is not provided, the mod simply won't be marked as "UPDATED"
+	"updatedOn": 1603393796937,
+	
+	
+	// An overview of the mod, will be rendered with Markdown under the mod's other details in the card
+	// Nothing will be displayed if this field doesn't exist
+	"overview": "This text is what will show up in the *mod details* ~~section~~ card below everything.\nThis text is rendered with **Markdown** for better formatting features.\nYou can have an overview of what your mod offers here, and you can include stuff such as sections, links, pictures....etc",
+	
+	
+	// Header object for customizing the header of the card
+	"header": {
+		// A picture added in the header
+		// If not provided, no image is displayed
+		"picture": "http://127.0.0.1:9873/docs/images/sample-1.jpg",
+		
+		// A string used as the color of the header's title
+		// This exists so that the title text is distinguishable from the background
+		
+		// If not provided and a picture is provided, white is assumed
+		// If not provided and no picture is provided either, MaterializeCSS's blue is assumed
+		
+		// Note that this string will be directly assigned to the CSS color attribute of the header text
+		// What that means is that, any valid CSS color can be used here
+		"color": "white"
+	},
+	
+	
+	// Pictures array for displaying..... pictures!
+	// Will be labeled "Screenshots" in the actual page
+	
+	// If not specified or is an empty array, no "Screenshots" tab will be displayed
+	"pictures": [
+		
+	],
+
+	
+	// Download info
+	
+	// All of these objects are just what I have in mind, the code I'm going to write is actually gonna pass the mod object as-is to window.installMod
+	// So they actually have no effect in my code, that is except the fact that a link to each one is displayed
+	
+	// I know I'm in no position to tell you what to do here (unless I contribute to the code that handles the installing which I most definitely will if I have time),
+	// so for now you can consider this a suggestion
+	"downloads": [
+		// A gamebanana mod page
+		// Fun fact: Its a Celeste mod made by my friend
+		{
+			"type": "gamebanana",
+			"id": "207902",
+			"category": "maps"
+		},
+		
+		{
+		// A github repository, where the mod is gonna be pulled out of the releases
+			"type": "github",
+			"repo": "EverestAPI/Everest"
+		},
+		
+		// A direct URL to download the mod from
+		// The label is there for displaying the link
+		// The URL there probably doesn't work, I'm offline as of writing this so please don't complain
+		{
+			"type": "direct",
+			"URL": "https://example.com/example.zip",
+			"label": "Download"
+		}
+	],
+	
+	
+	// Dependencies, do I have to explain this too?
+	// The string key for each one will resolve to the ID of the target mod, with the exception of CC and CCLoader
+	// Another mod would have "Example-Mod-Id": "^1.1.0" to reference this very example mod
+	// As I mentioned in the ID field comments, the ID is case-sensisitive with the exception of CC and CCLoader, again
+	// As of writing this I'm not sure about how to retrieve the versions of CC and CCLoader
+	
+	// Dependencies will also be shown as links to the referenced mods, and this is also why dependency IDs must be accurate
+	
+	// If a dependency cannot be found in the list at all, weelllll, I'm not sure what to do here lol
+	// I have two options: Show an error (or just log it to the console/log) and skip the mod with the unexisting dependency then move on with my life,
+	// or: Skip the dependency as if it doesn't exist
+	// Edit: I'm going with the latter, since its easier lol
+	"dependencies": {
+		"crosscode": "^1.1.0",
+		"ccloader": "^3.0.0-alpha"
+	}
+}
